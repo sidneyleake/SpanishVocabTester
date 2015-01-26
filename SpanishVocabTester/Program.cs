@@ -10,17 +10,38 @@
     {
         static void Main(string[] args)
         {
+            var input = string.Empty;
+            while (input != "STOP")
+            {
+                Console.Clear();
+                Console.WriteLine("Enter 1 to use the vocab tester and two to use the verb tester. Enter STOP to quit.");
+                input = Console.ReadLine();
+                if(input == "1")
+                {
+                    RunTester(Quiz.Vocab);
+                }
+                else if(input == "2")
+                {
+                    RunTester(Quiz.Verbs);
+                }
+            }
+
+        }
+
+        private static void RunTester(Dictionary<string, string> words)
+        {
+
             Console.OutputEncoding = System.Text.Encoding.Unicode;
             var generator = new Random(DateTime.Now.Millisecond);
             var input = String.Empty;
             var guessCount = 0;
             var correctCount = 0;
-            Console.WriteLine("Enter STOP to quit.");
-            while(input != "STOP")
+            Console.WriteLine("Enter STOP to return to main menu.");
+            while (input != "STOP")
             {
                 Console.WriteLine();
-                var index = generator.Next(100);
-                var word = Vocab.Words.Skip(index).Take(1).Single();
+                var index = generator.Next(words.Count);
+                var word = words.Skip(index).Take(1).Single();
                 Console.WriteLine("Translate: {0}", word.Key);
                 input = Console.ReadLine();
                 if (input != "STOP")
